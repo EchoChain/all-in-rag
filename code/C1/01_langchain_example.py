@@ -18,7 +18,7 @@ loader = UnstructuredMarkdownLoader(markdown_path)
 docs = loader.load()
 
 # 文本分块
-text_splitter = RecursiveCharacterTextSplitter()
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=1_000, chunk_overlap=200)
 chunks = text_splitter.split_documents(docs)
 
 # 中文嵌入模型
@@ -51,7 +51,7 @@ prompt = ChatPromptTemplate.from_template("""请根据下面提供的上下文�
 llm = ChatOpenAI(
     model="glm-4.7-flash-free",
     temperature=0.7,
-    max_tokens=4096,
+    max_tokens=2048,
     api_key=os.getenv("DEEPSEEK_API_KEY"),
     base_url="https://aihubmix.com/v1"
 )
@@ -65,7 +65,8 @@ llm = ChatOpenAI(
 # )
 
 # 用户查询
-question = "文中举了哪些例子？"
+# question = "文中举了哪些例子？"
+question = "俄乌冲突最新进展？"
 
 # 在向量存储中查询相关文档
 retrieved_docs = vectorstore.similarity_search(question, k=3)
