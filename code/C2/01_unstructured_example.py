@@ -1,12 +1,22 @@
 from unstructured.partition.auto import partition
+from unstructured.partition.pdf import partition_pdf
 
 # PDF文件路径
 pdf_path = "../../data/C2/pdf/rag.pdf"
 
 # 使用Unstructured加载并解析PDF文档
-elements = partition(
+
+# 元素类型: {'Header': 22, 'Title': 195, 'UncategorizedText': 41, 'NarrativeText': 3, 'Footer': 15, 'ListItem': 3}
+# elements = partition(
+#     filename=pdf_path,
+#     content_type="application/pdf"
+# )
+
+
+elements = partition_pdf(
     filename=pdf_path,
-    content_type="application/pdf"
+    strategy="hi_res",
+    include_page_breaks=False
 )
 
 # 打印解析结果

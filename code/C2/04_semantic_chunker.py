@@ -1,6 +1,7 @@
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import MarkdownHeaderTextSplitter
 
 embeddings = HuggingFaceEmbeddings(
     model_name="BAAI/bge-small-zh-v1.5",
@@ -11,7 +12,7 @@ embeddings = HuggingFaceEmbeddings(
 # 初始化 SemanticChunker
 text_splitter = SemanticChunker(
     embeddings,
-    breakpoint_threshold_type="percentile" # 也可以是 "standard_deviation", "interquartile", "gradient"
+    breakpoint_threshold_type="gradient" # 也可以是 "standard_deviation", "interquartile", "gradient"
 )
 
 loader = TextLoader("../../data/C2/txt/蜂医.txt", encoding="utf-8")
