@@ -13,7 +13,7 @@ MODEL_NAME = "BAAI/bge-base-en-v1.5"
 MODEL_PATH = "../../models/bge/Visualized_base_en_v1.5.pth"
 DATA_DIR = "../../data/C3"
 COLLECTION_NAME = "multimodal_demo"
-MILVUS_URI = "http://localhost:19530"
+MILVUS_URI = "http://192.168.75.100:19530"
 
 # 2. 定义工具 (编码器和可视化函数)
 class Encoder:
@@ -125,8 +125,10 @@ print("已加载 Collection 到内存中。")
 
 # 7. 执行多模态检索
 print(f"\n--> 正在 '{COLLECTION_NAME}' 中执行检索")
-query_image_path = os.path.join(DATA_DIR, "dragon", "query.png")
-query_text = "一条龙"
+# query_image_path = os.path.join(DATA_DIR, "dragon", "query_dragon.png")
+# query_text = "一条龙"
+query_image_path = os.path.join(DATA_DIR, "dragon", "query_monkey.png")
+query_text = "猴子"
 query_vector = encoder.encode_query(image_path=query_image_path, text=query_text)
 
 search_results = milvus_client.search(

@@ -5,12 +5,15 @@ model = Visualized_BGE(model_name_bge="BAAI/bge-base-en-v1.5",
                       model_weight="../../models/bge/Visualized_base_en_v1.5.pth")
 model.eval()
 
+text = "datawhale开源组织的logo"
+text = "老虎"
+
 with torch.no_grad():
-    text_emb = model.encode(text="datawhale开源组织的logo")
+    text_emb = model.encode(text=text)
     img_emb_1 = model.encode(image="../../data/C3/imgs/datawhale01.png")
-    multi_emb_1 = model.encode(image="../../data/C3/imgs/datawhale01.png", text="datawhale开源组织的logo")
+    multi_emb_1 = model.encode(image="../../data/C3/imgs/datawhale01.png", text=text)
     img_emb_2 = model.encode(image="../../data/C3/imgs/datawhale02.png")
-    multi_emb_2 = model.encode(image="../../data/C3/imgs/datawhale02.png", text="datawhale开源组织的logo")
+    multi_emb_2 = model.encode(image="../../data/C3/imgs/datawhale02.png", text=text)
 
 # 计算相似度
 sim_1 = img_emb_1 @ img_emb_2.T
